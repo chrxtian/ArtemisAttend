@@ -24,7 +24,7 @@ namespace ArtemisAttend.API.Controllers
                 throw new ArgumentNullException(nameof(artemisAttendRepository));
 
             _mapper = mapper ??
-                throw new ArgumentNullException(nameof(mapper)); ;
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
@@ -56,6 +56,29 @@ namespace ArtemisAttend.API.Controllers
 
             var userToReturn = _mapper.Map<UserDto>(userEntity);
             return CreatedAtRoute("GetUser", new { userId = userToReturn.Id }, userToReturn);
+        }
+
+        [HttpOptions]
+        public IActionResult GetUserOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
+        }
+
+        [HttpDelete("{userId}")]
+        public ActionResult DeleteUser(Guid userId)
+        {
+            var userToDelete = _artemisAttendRepository.GetUser(userId);
+
+            if (userToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _artemisAttendRepository.DeleteUser(userToDelete);
+            _artemisAttendRepository.Save();
+
+            return NoContent();
         }
     }
 }

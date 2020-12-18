@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using System;
 
 namespace ArtemisAttend.API
@@ -29,6 +30,11 @@ namespace ArtemisAttend.API
             {
                 setupAction.ReturnHttpNotAcceptable = true;
                 //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            })
+            .AddNewtonsoftJson(setupAction => 
+            {
+                setupAction.SerializerSettings.ContractResolver = 
+                    new CamelCasePropertyNamesContractResolver();
             })
             .AddXmlDataContractSerializerFormatters();
 
