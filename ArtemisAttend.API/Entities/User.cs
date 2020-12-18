@@ -18,13 +18,9 @@ namespace ArtemisAttend.API.Entities
         public string LastName { get; set; }
 
         [Required]
-        public DateTimeOffset DateOfBirth { get; set; }          
+        [MaxLength(100)]
+        public string Email { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string MainCategory { get; set; }
-
-        public ICollection<Course> Courses { get; set; }
-            = new List<Course>();
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }

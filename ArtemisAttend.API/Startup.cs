@@ -45,7 +45,9 @@ namespace ArtemisAttend.API
             services.AddDbContext<ArtemisAttendContext>(options =>
             {
                 options.UseSqlServer(
-                    @"Server=(localdb)\mssqllocaldb;Database=ArtemisAttendDB;Trusted_Connection=True;");
+                    @"Server=(localdb)\MSSQLlocalDB;Database=ArtemisAttendDB;Trusted_Connection=True;");
+
+                //options.UseSqlServer("Data source=(localdb)\\MSSQLlocalDB;Initial Catalog=ArtemisAttendDB; Integrated Security=True;");
             });
         }
 

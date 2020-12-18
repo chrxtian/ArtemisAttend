@@ -16,10 +16,7 @@ namespace ArtemisAttend.API.Profiles
             CreateMap<Entities.User, Models.UserDto>()
                 .ForMember(
                     dest => dest.Name,
-                    opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(
-                    dest => dest.Age,
-                    opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+                    opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
 
             CreateMap<Models.UserForCreationDto, Entities.User>();
         }

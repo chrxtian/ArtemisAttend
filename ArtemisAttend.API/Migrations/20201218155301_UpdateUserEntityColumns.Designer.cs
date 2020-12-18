@@ -4,14 +4,16 @@ using ArtemisAttend.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtemisAttend.API.Migrations
 {
     [DbContext(typeof(ArtemisAttendContext))]
-    partial class ArtemisAttendContextModelSnapshot : ModelSnapshot
+    [Migration("20201218155301_UpdateUserEntityColumns")]
+    partial class UpdateUserEntityColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

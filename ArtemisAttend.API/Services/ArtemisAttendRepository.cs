@@ -16,60 +16,6 @@ namespace CourseLibrary.API.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void AddCourse(Guid userId, Course course)
-        {
-            if (userId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            if (course == null)
-            {
-                throw new ArgumentNullException(nameof(course));
-            }
-            // always set the UserId to the passed-in userId
-            course.UserId = userId;
-            _context.Courses.Add(course); 
-        }         
-
-        public void DeleteCourse(Course course)
-        {
-            _context.Courses.Remove(course);
-        }
-  
-        public Course GetCourse(Guid userId, Guid courseId)
-        {
-            if (userId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            if (courseId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(courseId));
-            }
-
-            return _context.Courses
-              .Where(c => c.UserId == userId && c.Id == courseId).FirstOrDefault();
-        }
-
-        public IEnumerable<Course> GetCourses(Guid userId)
-        {
-            if (userId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            return _context.Courses
-                        .Where(c => c.UserId == userId)
-                        .OrderBy(c => c.Title).ToList();
-        }
-
-        public void UpdateCourse(Course course)
-        {
-            // no code in this implementation
-        }
-
         public void AddUser(User user)
         {
             if (user == null)
@@ -80,10 +26,10 @@ namespace CourseLibrary.API.Services
             // the repository fills the id (instead of using identity columns)
             user.Id = Guid.NewGuid();
 
-            foreach (var course in user.Courses)
-            {
-                course.Id = Guid.NewGuid();
-            }
+            //foreach (var course in user.Courses)
+            //{
+            //    course.Id = Guid.NewGuid();
+            //}
 
             _context.Users.Add(user);
         }
@@ -138,16 +84,15 @@ namespace CourseLibrary.API.Services
 
             var collection = _context.Users as IQueryable<User>;
 
-            if (!string.IsNullOrWhiteSpace(usersResourceParameters.MainCategory))
-            {
-                usersResourceParameters.MainCategory = usersResourceParameters.MainCategory.Trim();
-                collection = collection.Where(x => x.MainCategory == usersResourceParameters.MainCategory);
-            }
+            //if (!string.IsNullOrWhiteSpace(usersResourceParameters.MainCategory))
+            //{
+            //    usersResourceParameters.MainCategory = usersResourceParameters.MainCategory.Trim();
+            //    collection = collection.Where(x => x.MainCategory == usersResourceParameters.MainCategory);
+            //}
             if (!string.IsNullOrWhiteSpace(usersResourceParameters.SearchQuery))
             {
                 usersResourceParameters.SearchQuery = usersResourceParameters.SearchQuery.Trim();
-                collection = collection.Where(x => x.MainCategory.Contains(usersResourceParameters.SearchQuery)
-                || x.FirstName.Contains(usersResourceParameters.SearchQuery)
+                collection = collection.Where(x => x.FirstName.Contains(usersResourceParameters.SearchQuery)
                 || x.LastName.Contains(usersResourceParameters.SearchQuery));
             }
 
